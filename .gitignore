@@ -1,0 +1,43 @@
+logs
+project/project
+project/target
+target
+tmp
+.history
+dist
+.idea
+*.sc
+/out
+.idea_modules
+.classpath
+.project
+/RUNNING_PID
+.settings
+.DS_Store
+node_modules
+
+*.jar
+
+# hidden cross project folders
+*/.js
+*/.jvm
+
+# temp files
+.~*
+*~
+*.orig
+
+# eclipse
+.scala_dependencies
+.buildpath
+.cache
+.target
+bin/
+servers/assets/*
+*Proto.scala
+_proto
+*/local.sbt
+/npm-debug.log
+
+# error logs
+*.log
