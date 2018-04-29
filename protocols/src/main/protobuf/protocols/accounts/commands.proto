@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "scalapb/scalapb.proto";
+
+package protocols.accounts.commands;
+
+option (scalapb.options) = {
+  flat_package: true
+  single_file: true
+};
+
+message AddAccount {
+    string name = 1;
+}
