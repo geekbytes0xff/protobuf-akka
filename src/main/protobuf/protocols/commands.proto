@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "scalapb/scalapb.proto";
+
+package protocols.commands;
+
+option (scalapb.options) = {
+  flat_package: true
+  single_file: true
+};
+
+message AddNumber {
+    int32 operant = 1;
+}
+
+message SubstractNumber {
+    int32 operant = 1;
+}
