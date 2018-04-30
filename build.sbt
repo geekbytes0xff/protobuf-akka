@@ -2,7 +2,7 @@ name := "protobuf-akka-demo"
 
 version := "0.1"
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.6"
 
 //val cleanProtocols = taskKey[Unit]("Cleans the protobuf generated code")
 
@@ -35,29 +35,68 @@ lazy val protocols = {
         ) -> (sourceDirectory in Compile).value / "scala"
       )
     )
+    .settings(
+      updateOptions := updateOptions.value.withCachedResolution(false),
+      scalaVersion := "2.12.6"
+    )
     .settings(libraryDependencies += "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf")
+    .settings(libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
+      "ch.qos.logback" % "logback-classic" % "1.2.3"
+    ))
 
 }
 
 lazy val akkaVersion = "2.5.6"
 
-lazy val accounts_service  = {
-  (project in file("accounts_service"))
+lazy val seed = {
+  (project in file("seed"))
     .settings(libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % akkaVersion,
       "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
       "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
       "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84"
     ))
+    .settings(
+      updateOptions := updateOptions.value.withCachedResolution(false),
+      scalaVersion := "2.12.6"
+    )
+}
+
+lazy val generator = {
+  (project in file("generator"))
+    .settings(libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+      "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
+      "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
+      "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84",
+      "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
+      "ch.qos.logback" % "logback-classic" % "1.2.3"
+    ))
+    .settings(
+      updateOptions := updateOptions.value.withCachedResolution(false),
+      scalaVersion := "2.12.6"
+    )
+    .dependsOn(protocols)
 }
 
 
-lazy val users_service  = {
-  (project in file("users_service"))
+lazy val aggregator = {
+  (project in file("aggregator"))
     .settings(libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % akkaVersion,
       "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
       "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
-      "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84"
+      "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84",
+      "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
+      "ch.qos.logback" % "logback-classic" % "1.2.3"
     ))
+    .settings(
+      updateOptions := updateOptions.value.withCachedResolution(false),
+      scalaVersion := "2.12.6"
+    )
+    .dependsOn(protocols)
 }

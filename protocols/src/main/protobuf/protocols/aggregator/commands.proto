@@ -2,14 +2,13 @@ syntax = "proto3";
 
 import "scalapb/scalapb.proto";
 
-package protocols.accounts.events;
+package demo.protocols.aggregator.commands;
 
 option (scalapb.options) = {
   flat_package: true
   single_file: true
 };
 
-message AccountCreated {
-    string id = 1;
-    string name = 2;
+message AddNumber {
+    int32 number = 1;
 }
