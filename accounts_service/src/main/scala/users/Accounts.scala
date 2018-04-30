@@ -1,16 +1,16 @@
 package users
 
-import akka.actor.{ActorRef, Props}
+import akka.actor.{Actor, ActorRef, Props}
 
 object Accounts {
-  def props(usersActorRef: ActorRef): Props = Props(new Accounts(usersActorRef))
+  def props(): Props = Props(new Accounts())
 }
 
 //#greeter-actor
-class Accounts(usersActorRef: ActorRef) extends Actor {
+class Accounts() extends Actor {
 
 
   def receive = {
-
+    case a => println(a)
   }
 }

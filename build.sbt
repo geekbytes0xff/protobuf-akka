@@ -2,7 +2,7 @@ name := "protobuf-akka-demo"
 
 version := "0.1"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.3"
 
 //val cleanProtocols = taskKey[Unit]("Cleans the protobuf generated code")
 
@@ -18,7 +18,10 @@ PB.generate in Compile := {
   (PB.generate in Compile).value
 }*/
 
+//resolvers += "krasserm at bintray" at "http://dl.bintray.com/krasserm/maven"
 
+
+updateOptions := updateOptions.value.withCachedResolution(false)
 
 lazy val protocols = {
   (project in file("protocols"))
@@ -36,15 +39,25 @@ lazy val protocols = {
 
 }
 
-lazy val akkaVersion = "2.5.12"
+lazy val akkaVersion = "2.5.6"
 
 lazy val accounts_service  = {
   (project in file("accounts_service"))
-    .settings(libraryDependencies += "com.typesafe.akka" %% "akka-actor" % akkaVersion)
-
+    .settings(libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+      "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
+      "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
+      "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84"
+    ))
 }
+
+
 lazy val users_service  = {
   (project in file("users_service"))
-    .settings(libraryDependencies += "com.typesafe.akka" %% "akka-actor" % akkaVersion)
-
+    .settings(libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+      "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
+      "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
+      "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84"
+    ))
 }

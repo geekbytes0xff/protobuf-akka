@@ -2,7 +2,7 @@ package users
 
 import akka.actor.{ActorRef, ActorSystem}
 
-object AccountsService extends App {
+object UsersService extends App {
 
   val system: ActorSystem = ActorSystem("protobuf")
 

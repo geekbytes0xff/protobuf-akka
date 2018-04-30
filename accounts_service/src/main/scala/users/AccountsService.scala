@@ -6,6 +6,11 @@ object AccountsService extends App {
 
   val system: ActorSystem = ActorSystem("protobuf")
 
-  val accountsActor = system.actorOf(Accounts.props("Howdy"), "accounts")
+
+
+  val accountsActor = system.actorOf(Accounts.props(), "accounts")
+
+
+  accountsActor ! "sdfsdfsdf"
 
 }
