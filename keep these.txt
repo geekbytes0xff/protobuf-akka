@@ -1,0 +1,71 @@
+sbt run in debug mode
+----------------------------
+sbt -jvm-debug 5005
+
+
+
+build script
+-------------
+sbt -mem 2048 clean coverage coverageOutputTeamCity protocGenerate compile test coverageReport coverageAggregate scalastyle
+
+
+sbt -mem 4048 clean protocGenerate compile test
+
+
+update ssl certificate aws dev
+-------------------------------
+sudo /usr/share/certbot/certbot-auto certonly --webroot -w /usr/share/nginx/html -d auth.ngage.cc --no-bootstrap
+
+
+docker shell start
+----------
+docker exec -it <docker id> /bin/bash
+
+
+search for running process
+---------------------------
+ps aux | grep "tomcat*"
+
+find files
+----------------------
+find / -name "postgresql96-server*"
+
+
+find running ports
+--------------------------------
+sudo lsof -i :5432
+
+
+kill process 
+-------------------------------
+sudo kill -9 <process-id>
+
+
+generate ssh key pair
+----------------------------
+ssh-keygen -t rsa
+
+
+
+ssh to aws
+------------------------
+sudo ssh -i /home/mts/.ssh/chs-keypair.pem ec2-user@dev.callhandling.co.uk
+
+
+ssh copy file 
+-----------------------------
+sudo scp -i /home/mts/.ssh/chs-keypair.pem keycloak.sql ec2-user@dev.callhandling.co.uk:/tmp/keycloak-3.4.0.Final
+
+
+ip details
+---------------------
+ifconfig
+
+docker list all container
+----------------------
+docker ps -aq
+
+
+
+
+

@@ -1,0 +1,24 @@
+install docker
+--------------
+sudo docker run -d --name cassandra-demo -e JVM_OPTS='-Xmx1024m -Xms1024m' cassandra:latest
+
+stop docker
+-----------
+sudo docker stop cassandra-demo
+
+
+remove docker
+-------------
+sudo docker rm cassandra-demo
+
+
+inspect
+-------
+sudo docker inspect cassandra-demo
+
+
+list
+----
+docker ps -aq
+
+
