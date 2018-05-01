@@ -10,7 +10,7 @@ option (scalapb.options) = {
   single_file: true
 };
 
-message Aggregate {
+message Sum {
     option (manifest) = 3;
-    int32 value = 1;
+    int32 total = 1;
 }
