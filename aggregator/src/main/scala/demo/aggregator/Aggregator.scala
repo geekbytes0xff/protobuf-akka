@@ -18,22 +18,23 @@ class Aggregator() extends PersistentActor with LazyLogging {
 
   def update(event: Any):Unit = event match {
     case NumberAdded(number) => state = state.copy(state.value + number)
+    case _=> ()
   }
 
   override def receiveCommand: Receive = {
     case x@AddNumber(number) => {
-      logger.info("Aggregator Received Command", x)
+      logger.info("Aggregator Received Command {}", x)
       persist[NumberAdded](NumberAdded(number))(update)
     }
     case x => {
-      logger.info("Aggregator Received UnKnown Command", x)
+      logger.info("Aggregator Received UnKnown Command {}", x)
     }
   }
 
   override def receiveRecover: Receive = {
     case x: NumberAdded => update(x)
     case RecoveryCompleted => {
-      logger.info("Aggregator Recovery Complete State ", state)
+      logger.info("Aggregator Recovery Complete State {} ", state.value)
     }
   }
 

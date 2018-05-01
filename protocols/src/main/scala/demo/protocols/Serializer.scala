@@ -31,7 +31,7 @@ class Serializer extends akka.serialization.SerializerWithStringManifest with Ut
   }
 
   override def fromBinary(bytes: Array[Byte], manifest: String): AnyRef = {
-    val o = Try {
+    val o:Any = Try {
       manifest.toLong
     }.flatMap(manifest => {
       Registry.parsers.get(manifest) match {
@@ -43,6 +43,6 @@ class Serializer extends akka.serialization.SerializerWithStringManifest with Ut
       }
     }).get
     logger.debug("deserialized proto message {}", o)
-    o
+    o.asInstanceOf[AnyRef]
   }
 }
