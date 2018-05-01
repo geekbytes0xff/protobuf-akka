@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "scalapb/scalapb.proto";
+import "pboptions.proto";
 
 package demo.protocols.aggregator.events;
 
@@ -10,5 +11,6 @@ option (scalapb.options) = {
 };
 
 message NumberAdded {
+    option (manifest) = 2;
     int32 number = 1;
 }

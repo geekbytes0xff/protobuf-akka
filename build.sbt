@@ -50,7 +50,7 @@ lazy val protocols = {
 
 lazy val akkaVersion = "2.5.6"
 
-lazy val seed = {
+/*lazy val seed = {
   (project in file("seed"))
     .settings(libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % akkaVersion,
@@ -62,7 +62,7 @@ lazy val seed = {
       updateOptions := updateOptions.value.withCachedResolution(false),
       scalaVersion := "2.12.6"
     )
-}
+}*/
 
 lazy val generator = {
   (project in file("generator"))
