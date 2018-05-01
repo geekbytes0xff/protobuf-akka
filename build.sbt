@@ -27,11 +27,9 @@ lazy val protocols = {
   (project in file("protocols"))
     .settings(
       PB.targets in Compile := Seq(
-        scalapb.gen(
-          flatPackage = false,
-          javaConversions = false,
-          grpc = false,
-          singleLineToProtoString = true
+        ScalPbCodeGenWithManifest(
+          sLog.value,
+          (sourceDirectory in Compile).value / "scala/demo/Registry.scala"
         ) -> (sourceDirectory in Compile).value / "scala"
       )
     )
