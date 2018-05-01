@@ -1,10 +1,11 @@
 package demo.protocols
 
 import io.circe._, io.circe.generic.auto._, io.circe.syntax._
+import demo.PboptionsProto
 import scalapb.{GeneratedMessage, GeneratedMessageCompanion, Message}
 
 trait Utils {
-  def getManifest[P <: Message[P]](companion: GeneratedMessageCompanion[P]): Long = {
+  def getManifest[P <: Message[P] with GeneratedMessage](companion: GeneratedMessageCompanion[P]): Long = {
     companion.scalaDescriptor.getOptions.extension(PboptionsProto.manifest).get
   }
 

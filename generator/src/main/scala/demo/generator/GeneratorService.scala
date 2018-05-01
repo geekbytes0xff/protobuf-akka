@@ -24,7 +24,13 @@ object GeneratorService extends App with LazyLogging {
       scala.io.StdIn.readInt()
     }
 
-    int.foreach(aggregator ! AddNumber(_))
+    int.foreach(i => {
+
+      val cmd = AddNumber(i)
+      logger.info("sending command from generator {}" , cmd)
+
+      aggregator ! cmd
+    })
 
 
 

@@ -42,4 +42,4 @@ _proto
 # error logs
 *.log
 
-protocols/src/main/scala/demo/Registry.scala
+protocols/src/main/scala/demo/protocols/Registry.scala
