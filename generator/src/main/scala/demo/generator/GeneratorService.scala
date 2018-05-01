@@ -3,7 +3,7 @@ package demo.generator
 import akka.actor.ActorSystem
 import com.typesafe.scalalogging.LazyLogging
 import demo.protocols.Utils
-import demo.protocols.aggregator.commands.AddNumber
+import demo.protocols.aggregator.commands.SumNumber
 
 import scala.util.Try
 import io.circe._, io.circe.generic.auto._, io.circe.syntax._
@@ -28,7 +28,7 @@ object GeneratorService extends App with LazyLogging  with Utils{
 
     int.foreach(i => {
 
-      val cmd = AddNumber(i)
+      val cmd = SumNumber(i)
       logger.info("\n----sending command from generator---------\n{}\n----------------------" , prettyPrint(cmd))
 
       aggregator ! cmd
