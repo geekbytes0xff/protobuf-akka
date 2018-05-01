@@ -1,5 +1,6 @@
 package demo.protocols
 
+import io.circe._, io.circe.generic.auto._, io.circe.syntax._
 import scalapb.{GeneratedMessage, GeneratedMessageCompanion, Message}
 
 trait Utils {
@@ -9,6 +10,10 @@ trait Utils {
 
   def getManifest(message: GeneratedMessage): Long = {
     message.companion.scalaDescriptor.getOptions.extension(PboptionsProto.manifest).get
+  }
+
+  def prettyPrint[A](obj: => A)(implicit encoder: Encoder[A]): String = {
+    s"${obj.getClass.getSimpleName}{${obj.asJson.noSpaces}"
   }
 }
 
