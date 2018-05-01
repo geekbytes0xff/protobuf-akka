@@ -4,6 +4,8 @@ import akka.actor.ActorSystem
 import com.typesafe.scalalogging.LazyLogging
 import demo.protocols.aggregator.commands.AddNumber
 
+import scala.util.Try
+
 object GeneratorService extends App with LazyLogging {
 
   //lazy val config = ConfigFactory.parseFile(new java.io.File("application.conf"))
@@ -18,9 +20,13 @@ object GeneratorService extends App with LazyLogging {
   println("Enter few Numbers >>")
   do {
 
-    val int = scala.io.StdIn.readInt()
+    val int = Try{
+      scala.io.StdIn.readInt()
+    }
 
-    aggregator ! AddNumber(int)
+    int.foreach(aggregator ! AddNumber(_))
+
+
 
   } while (true)
 
