@@ -28,7 +28,7 @@ class ScalPbCodeGenWithManifest(log: Logger, protocolsRegistryFile: File) extend
 
 
     val messages: List[(DescriptorProto, FileDescriptorProto)] = request.getProtoFileList.asScala.toList.flatMap(file => {
-      if (file.hasPackage && file.getPackage.startsWith("demo")) {
+      if (file.hasPackage && file.getPackage.startsWith("demo.protocols")) {
         file.getMessageTypeList.asScala.toList.map((_, file))
       } else {
         Nil
