@@ -6,6 +6,7 @@ import com.typesafe.scalalogging.LazyLogging
 import demo.protocols.aggregator.commands.AddNumber
 import demo.protocols.aggregator.events.NumberAdded
 import demo.protocols.aggregator.state.Aggregate
+import io.circe._, io.circe.generic.auto._, io.circe.syntax._
 
 object Aggregator {
   def props(): Props = Props(new Aggregator())
@@ -21,19 +22,21 @@ class Aggregator() extends PersistentActor with LazyLogging {
   }
 
   override def receiveCommand: Receive = {
+
+
     case x@AddNumber(number) => {
-      logger.info("Aggregator Received Command", x)
+      logger.info("Aggregator Received Command {}", x.asJson.noSpaces)
       persist[NumberAdded](NumberAdded(number))(update)
     }
     case x => {
-      logger.info("Aggregator Received UnKnown Command", x)
+      logger.info("Aggregator Received UnKnown Command {}", x.asJson.noSpaces)
     }
   }
 
   override def receiveRecover: Receive = {
     case x: NumberAdded => update(x)
     case RecoveryCompleted => {
-      logger.info("Aggregator Recovery Complete State ", state)
+      logger.info("Aggregator Recovery Complete State {}", state.asJson.noSpaces)
     }
   }
 
