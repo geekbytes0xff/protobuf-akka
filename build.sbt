@@ -40,6 +40,18 @@ lazy val loggingDependencies = {
 
 
 
+lazy val akkaDependencies = {
+  val akkaVersion = "2.5.6"
+  Seq(
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+    "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
+    "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
+    "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84",
+    "com.typesafe.akka" %% "akka-slf4j" % akkaVersion
+  )
+}
+
+
 lazy val protocols = {
   (project in file("protocols"))
     .settings(
@@ -55,20 +67,10 @@ lazy val protocols = {
       scalaVersion := "2.12.6"
     )
     .settings(libraryDependencies += "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf")
-    .settings(libraryDependencies ++= loggingDependencies)
+    .settings(libraryDependencies ++= akkaDependencies ++ loggingDependencies ++ circeDependencies)
 
 }
 
-lazy val akkaDependencies = {
-  val akkaVersion = "2.5.6"
-  Seq(
-    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-    "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
-    "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
-    "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84",
-    "com.typesafe.akka" %% "akka-slf4j" % akkaVersion
-  )
-}
 
 /*lazy val seed = {
   (project in file("seed"))
