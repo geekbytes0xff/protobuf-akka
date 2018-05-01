@@ -14,7 +14,7 @@ trait Utils {
   }
 
   def prettyPrint[A](obj: => A)(implicit encoder: Encoder[A]): String = {
-    s"${obj.getClass.getSimpleName}{${obj.asJson.noSpaces}"
+    s"${obj.getClass.getSimpleName}${obj.asJson.noSpaces}"
   }
 }
 

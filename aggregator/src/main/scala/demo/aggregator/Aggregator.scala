@@ -7,6 +7,7 @@ import demo.protocols.Utils
 import demo.protocols.aggregator.commands.AddNumber
 import demo.protocols.aggregator.events.NumberAdded
 import demo.protocols.aggregator.state.Aggregate
+import io.circe._, io.circe.generic.auto._, io.circe.syntax._
 
 object Aggregator {
   def props(): Props = Props(new Aggregator())
@@ -18,7 +19,10 @@ class Aggregator() extends PersistentActor with LazyLogging with Utils {
   var state: Aggregate = Aggregate(0)
 
   def update(event: Any):Unit = event match {
-    case NumberAdded(number) => state = state.copy(state.value + number)
+    case e@NumberAdded(number) => {
+      state = state.copy(state.value + number)
+      logger.info("\n---- updating state ---------\nevent: {}\nnew state: {}\n --------------------", prettyPrint(e),prettyPrint(state))
+    }
     case _=> ()
   }
 
@@ -26,7 +30,7 @@ class Aggregator() extends PersistentActor with LazyLogging with Utils {
 
 
     case x@AddNumber(number) => {
-      logger.info("----Aggregator Received Command---------\n{}\n---------------------------------", prettyPrint(x))
+      logger.info("\n----Aggregator Received Command---------\n{}\n--------------------", prettyPrint(x))
       persist[NumberAdded](NumberAdded(number))(update)
     }
     case x => {
@@ -37,7 +41,7 @@ class Aggregator() extends PersistentActor with LazyLogging with Utils {
   override def receiveRecover: Receive = {
     case x: NumberAdded => update(x)
     case RecoveryCompleted => {
-      logger.info("----Aggregator Recovery Complete with State---------\n{}\n---------------------------------", prettyPrint(state))
+      logger.info("\n----Aggregator Recovery Complete with State---------\n{}\n-----------------", prettyPrint(state))
     }
   }
 
