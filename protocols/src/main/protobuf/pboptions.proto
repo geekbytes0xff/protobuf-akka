@@ -10,10 +10,6 @@ flat_package: true
 single_file: true
 };
 
-message SchemaOptions {
-    optional int32 manifest = 1;
-}
-
 extend google.protobuf.MessageOptions {
     optional int64 manifest = 59367;
 }

@@ -29,7 +29,7 @@ lazy val protocols = {
       PB.targets in Compile := Seq(
         ScalPbCodeGenWithManifest(
           sLog.value,
-          (sourceDirectory in Compile).value / "scala/demo/Registry.scala"
+          (sourceDirectory in Compile).value / "scala/demo/protocols/Registry.scala"
         ) -> (sourceManaged in Compile).value
       )
     )
