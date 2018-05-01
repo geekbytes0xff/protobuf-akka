@@ -23,6 +23,23 @@ PB.generate in Compile := {
 
 updateOptions := updateOptions.value.withCachedResolution(false)
 
+lazy val circeDependencies = {
+  val circeVersion = "0.9.3"
+  Seq(
+    "io.circe" %% "circe-core",
+    "io.circe" %% "circe-generic"
+  ).map(_ % circeVersion)
+}
+
+lazy val loggingDependencies = {
+  Seq(
+    "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
+    "ch.qos.logback" % "logback-classic" % "1.2.3"
+  )
+}
+
+
+
 lazy val protocols = {
   (project in file("protocols"))
     .settings(
@@ -38,15 +55,20 @@ lazy val protocols = {
       scalaVersion := "2.12.6"
     )
     .settings(libraryDependencies += "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf")
-    .settings(libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
-      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
-      "ch.qos.logback" % "logback-classic" % "1.2.3"
-    ))
+    .settings(libraryDependencies ++= loggingDependencies)
 
 }
 
-lazy val akkaVersion = "2.5.6"
+lazy val akkaDependencies = {
+  val akkaVersion = "2.5.6"
+  Seq(
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+    "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
+    "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
+    "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84",
+    "com.typesafe.akka" %% "akka-slf4j" % akkaVersion
+  )
+}
 
 /*lazy val seed = {
   (project in file("seed"))
@@ -64,15 +86,7 @@ lazy val akkaVersion = "2.5.6"
 
 lazy val generator = {
   (project in file("generator"))
-    .settings(libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-      "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
-      "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
-      "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84",
-      "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
-      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
-      "ch.qos.logback" % "logback-classic" % "1.2.3"
-    ))
+    .settings(libraryDependencies ++= akkaDependencies ++ loggingDependencies ++ circeDependencies)
     .settings(
       updateOptions := updateOptions.value.withCachedResolution(false),
       scalaVersion := "2.12.6"
@@ -83,15 +97,7 @@ lazy val generator = {
 
 lazy val aggregator = {
   (project in file("aggregator"))
-    .settings(libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-      "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
-      "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
-      "com.typesafe.akka" %% "akka-persistence-cassandra" % "0.84",
-      "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
-      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
-      "ch.qos.logback" % "logback-classic" % "1.2.3"
-    ))
+    .settings(libraryDependencies ++= akkaDependencies ++ loggingDependencies ++ circeDependencies)
     .settings(
       updateOptions := updateOptions.value.withCachedResolution(false),
       scalaVersion := "2.12.6"

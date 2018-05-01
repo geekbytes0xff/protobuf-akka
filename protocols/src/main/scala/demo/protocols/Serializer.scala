@@ -2,9 +2,9 @@ package demo.protocols
 
 import com.typesafe.scalalogging.LazyLogging
 import demo.Registry
-import scalapb.GeneratedMessage
 
-import scala.util.{Failure, Success, Try}
+import scala.util.{Failure, Try}
+import scalapb.GeneratedMessage
 
 class Serializer extends akka.serialization.SerializerWithStringManifest with Utils with LazyLogging {
   override def identifier: Int = 61551
