@@ -1,7 +1,7 @@
 package demo.protocols
 
 import com.typesafe.scalalogging.LazyLogging
-import demo.Registry
+import demo.protocols.Registry
 
 import scala.util.{Failure, Try}
 import scalapb.GeneratedMessage
@@ -49,7 +49,7 @@ class Serializer extends akka.serialization.SerializerWithStringManifest with Ut
 
 
 class EventSerializer extends akka.serialization.SerializerWithStringManifest with Utils with LazyLogging {
-  override def identifier: Int = 61551
+  override def identifier: Int = 61552
 
   override def manifest(o: AnyRef): String = {
     logger.debug("serializing proto message {}", o)
