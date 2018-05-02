@@ -60,7 +60,7 @@ class ScalPbCodeGenWithManifest(log: Logger, protocolsRegistryFile: File) extend
 
       val registrySource =
         s"""
-           |package demo
+           |package demo.protocols
            |
            |import scalapb.GeneratedMessage
            |import scala.util.Try
