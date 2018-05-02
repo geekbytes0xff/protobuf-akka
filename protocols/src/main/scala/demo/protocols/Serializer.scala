@@ -1,7 +1,7 @@
 package demo.protocols
 
 import com.typesafe.scalalogging.LazyLogging
-import demo.Registry
+import demo.protocols.Registry
 
 import scala.util.{Failure, Try}
 import scalapb.GeneratedMessage
