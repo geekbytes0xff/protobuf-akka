@@ -52,12 +52,12 @@ class EventSerializer extends akka.serialization.SerializerWithStringManifest wi
   override def identifier: Int = 61552
 
   override def manifest(o: AnyRef): String = {
-    logger.debug("serializing proto message {}", o)
+    logger.debug("serializing proto event message {}", o)
     o match {
       case Event(message) => getManifest(message).toString
       case _ => {
-        logger.error("unknown object in proto serializer")
-        throw new Exception("unknown object in proto serializer")
+        logger.error("unknown object in proto event serializer")
+        throw new Exception("unknown object in proto event serializer")
       }
     }
   }
@@ -66,8 +66,8 @@ class EventSerializer extends akka.serialization.SerializerWithStringManifest wi
     o match {
       case Event(message) => message.toByteArray
       case _ => {
-        logger.error("unknown object in proto serializer")
-        throw new Exception("unknown object in proto serializer")
+        logger.error("unknown object in proto event serializer")
+        throw new Exception("unknown object in proto event serializer")
       }
     }
   }
@@ -79,12 +79,12 @@ class EventSerializer extends akka.serialization.SerializerWithStringManifest wi
       Registry.parsers.get(manifest) match {
         case Some(parser) => parser(bytes)
         case None => {
-          logger.error("undetected message type on deserialize {}", manifest)
-          Failure(new Exception("undetected message type on deserialize"))
+          logger.error("undetected message type on proto event deserialize {}", manifest)
+          Failure(new Exception("undetected message type on proto event deserialize"))
         }
       }
     }).get
-    logger.debug("deserialized proto message {}", o)
+    logger.debug("deserialized proto event message {}", o)
     Event(o)
   }
 }
