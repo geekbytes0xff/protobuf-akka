@@ -48,7 +48,7 @@ class Serializer extends akka.serialization.SerializerWithStringManifest with Ut
 }
 
 
-class EventSerializer extends akka.serialization.SerializerWithStringManifest with Utils with LazyLogging {
+/*class EventSerializer extends akka.serialization.SerializerWithStringManifest with Utils with LazyLogging {
   override def identifier: Int = 61552
 
   override def manifest(o: AnyRef): String = {
@@ -87,4 +87,4 @@ class EventSerializer extends akka.serialization.SerializerWithStringManifest wi
     logger.debug("deserialized proto event message {}", o)
     Event(o)
   }
-}
+}*/
